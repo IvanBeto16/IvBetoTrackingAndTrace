@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Tracking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Rastreo de Paquetes</h2>
+<br />
+<br />
+<span>Rastree su paquete ingresando el código asignado y podrá ver la ruta, tanto el punto de inicio como el destino de su paquete.</span>
+<br />
+<div class="row rowc-cols-2">
+    <div class="col-lg-6">
+        <label>Punto de Origen del Paquete</label> <br />
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-map-location"></i></span>
+            <input type="text" class="form-control" placeholder="Punto de Origen" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <label>Destino del Paquete</label> <br />
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-location-dot"></i></span>
+            <input type="text" class="form-control" placeholder="Destino" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+    </div>
+</div>
+<hr />
+<h6 class="text-center">Mapa de Direcciones</h6>
+<div id="map"></div>
+
+<style>
+    #map {
+        height: 100%;
+        padding: 170px;
+        border-radius: 16px;
+    }
+
+    #myCanvas {
+        border-radius: 20px;
+    }
+
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<!--Mapa de Google Maps-->
+<script type="text/javascript">
+    (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })({
+        key: "AIzaSyCSKBDdPPlfca_zTwyxKiicRQn1qfgRjLw",
+        v: "weekly",
+        // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+        // Add other bootstrap parameters as needed, using camel case.
+    });
+
+    let position;
+    let geocoder;
+
+    async function initMap() {
+        const { Map, infoWindow } = await google.maps.importLibrary("maps");
+        const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
+        geocoder = new google.maps.Geocoder();
+
+        const myLatLng = { lat: 19.4356332979789, lng: - 99.1412896915206 }
+
+        const map = new Map(document.getElementById("map"), {
+            zoom: 11,
+            center: myLatLng,
+            mapId: "4504f8b37365c3d0",
+        });
+    }
+
+    initMap();
+</script>

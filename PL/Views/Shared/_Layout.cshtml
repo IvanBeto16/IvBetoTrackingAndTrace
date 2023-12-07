@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body style="background: rgb(5,5,82); background: linear-gradient(45deg, rgba(5,5,82,1) 39%, rgba(1,187,234,1) 70%, rgba(0,212,255,1) 100%, rgba(1,0,13,1) 100%); background-repeat: no-repeat; color: white; ">
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark " style="background: rgb(5,5,82)">
+        <div class="container">
+            @Html.ActionLink("T&T Company", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar navegación" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li>@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    @{
+                        var tipo = Context.Session["tipoUsuario"] as string;
+                        if (tipo == null || tipo == "")
+                        {
+                            <li>@Html.ActionLink("Paquetes", "Tracking", "Paquete", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Iniciar Sesion", "Login", "Usuario", new { area = "" }, new { @class = "nav-link" })</li>
+                        }
+                        if (tipo == "Usuario")
+                        {
+                            <li>@Html.ActionLink("Paquetes", "Tracking", "Paquete", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Cerrar Sesion", "Login", "Usuario", new { area = "" }, new { @class = "nav-link" })</li>
+                        }
+                        if (tipo == "Administrador")
+                        {
+                            <li>@Html.ActionLink("Paquetes", "Tracking", "Paquete", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Usuarios", "GetAll", "Usuario", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Repartidores", "GetAllRepartidor", "Repartidor", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Unidades", "GetAllUnidad", "Unidad", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Cerrar Sesion", "Login", "Usuario", new { area = "" }, new { @class = "nav-link" })</li>
+                        }
+                        if (tipo == "Repartidor")
+                        {
+                            <li>@Html.ActionLink("Paquetes", "Tracking", "Paquete", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="nav-link">Mi Perfil</li>
+                            <li class="nav-link">Mis Entregas</li>
+                            <li class="nav-link">Mi Unidad</li>
+                            <li>@Html.ActionLink("Cerrar Sesion", "Login", "Usuario", new { area = "" }, new { @class = "nav-link" })</li>
+                        }
+
+                    }
+
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Buscar paquetes" aria-label="Search">
+                    <button class="btn btn-info" type="submit">Rastrear</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,60 @@
+﻿@model ML.Usuario
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Registro/Actualización de Usuarios</h2>
+<br />
+<br />
+<span>Llene los campos necearios para completar el registro/actualización de su usuario en el sistema</span>
+<hr />
+@using (Html.BeginForm("Form", "Usuario", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <center>
+        <div class="row row-cols-2">
+            <div class="col-lg-6">
+                @Html.LabelFor(model => Model.Nombre)
+                @Html.TextBoxFor(model => Model.Nombre, new { @class = "form-control", @type = "text", @placeholder = "Nombre(s)" })
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(model => Model.ApellidoPaterno)
+                @Html.TextBoxFor(model => Model.ApellidoPaterno, new { @class = "form-control", @type = "text", @placeholder = "Apellido Paterno" })
+            </div>
+        </div>
+        <br />
+        <div class="row row-cols-2">
+            <div class="col-lg-6">
+                @Html.LabelFor(model => Model.ApellidoMaterno)
+                @Html.TextBoxFor(model => Model.ApellidoMaterno, new { @class = "form-control", @type = "text", @placeholder = "Apellido Materno" })
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(model => Model.Email)
+                @Html.TextBoxFor(model => Model.Email, new { @class = "form-control", @type = "text", @placeholder = "Correo Electronico" })
+            </div>
+        </div>
+        <br />
+        <div class="row row-cols-2">
+            <div class="col-lg-6">
+                @Html.LabelFor(model => Model.Username)
+                @Html.TextBoxFor(model => Model.Username, new { @class = "form-control", @type = "text", @placeholder = "Nombre de Usuario" })
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(model => Model.Password)
+                @Html.TextBoxFor(model => Model.Password, new { @class = "form-control", @type = "password", @placeholder = "Contraseña" })
+            </div>
+        </div>
+        <br />
+        <div class="row row-cols-2">
+            <div class="col-lg-6">
+                @Html.Label("Tipo de Rol del sistema")
+                @Html.DropDownListFor(model => Model.Rol.IdRol, new SelectList(Model.Rol.Roles, "IdRol", "Tipo"), "Seleccione su Rol", new { @class = "form-control" })
+            </div>
+        </div>
+    </center>
+    <br />
+    <br />
+    <button type="submit" class="btn btn-success"> Agregar Usuario</button>
+    <a class="btn btn-danger" href="@Url.Action("GetAll", "Usuario")"> Regresa a Vista</a>
+}
+

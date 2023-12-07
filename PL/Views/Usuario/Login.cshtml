@@ -1,0 +1,72 @@
+﻿@model ML.Usuario
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - TrackAndTrace</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles/StyleLgn.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+</head>
+<body>
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    @using (Html.BeginForm("Login", "Usuario", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        <br />
+        <br />
+        <div class="container">
+            <div class="screen">
+                <br />
+                <br />
+                <br />
+                <br />
+
+                <div class="screen__content">
+                    <form class="login">
+                        <h3 class="fw-bold" style="color: rgb(20,10,90)">Log In - TrackAndTrace</h3>
+                        <div class="login__field">
+                            <i class="login__icon fas fa-user"></i>
+                            <!--<input type="text" class="login__input" placeholder="Username / Email">-->
+                            @Html.TextBoxFor(model => Model.Email, new { @type = "text", @class = "login__input", @placeholder = "Email" })
+                        </div>
+                        <div class="login__field">
+                            <i class="login__icon fas fa-lock"></i>
+                            <!--<input type="password" class="login__input" placeholder="Password">-->
+                            @Html.TextBoxFor(model => Model.Password, new { @type = "password", @class = "login__input", @placeholder = "Password" })
+                        </div>
+                        <button class="button login__submit">
+                            <span class="button__text">Log In Now</span>
+                            <i class="button__icon fas fa-chevron-right"></i>
+                        </button>
+                    </form>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="social-login">
+                        <h3>log in via</h3>
+                        <div class="social-icons">
+                            <a href="#" class="social-login__icon"><i class="fa-brands fa-square-twitter"></i></a>
+                            <a href="#" class="social-login__icon"><i class=" fa-brands fa-facebook"></i></a>
+                            <a href="#" class="social-login__icon fab fa-twitter"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen__background">
+                    <span class="screen__background__shape screen__background__shape4"></span>
+                    <span class="screen__background__shape screen__background__shape3"></span>
+                    <span class="screen__background__shape screen__background__shape2"></span>
+                    <span class="screen__background__shape screen__background__shape1"></span>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+        <h6 style="color: lightblue; padding: 10px;">2023 - Todos los Derechos Reservados - DIGIS01 - México</h6>
+    }
+</body>
+</html>

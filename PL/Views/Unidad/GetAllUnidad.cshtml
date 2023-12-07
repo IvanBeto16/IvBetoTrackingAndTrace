@@ -1,0 +1,57 @@
+﻿@model ML.Unidad
+@{
+    ViewBag.Title = "GetAllUnidad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Unidades de Envío Registradas</h2>
+<br />
+<br />
+<span>Listado de las Unidades Automovilisticas de envío de paquetes registrados en el sistema. Los administradores puedes agregar, editar y/o eliminar los elementos
+    mostrados a continuación. Consulte antes para previa autorización antes de hacer cambios.</span>
+<hr />
+@if (Model.Unidades.Count > 0)
+{
+    <table class="table table-responsive table-dark">
+        <thead>
+            <tr>
+                <th>Editar Unidad</th>
+                <th>No. Unidad</th>
+                <th>Numero de Placa</th>
+                <th>Modelo de la Unidad</th>
+                <th>Marca Fabricante</th>
+                <th>Año de Fabricación</th>
+                <th>Estatus de la Unidad</th>
+                <th>Eliminar Unidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ML.Unidad unidad in Model.Unidades)
+            {
+                <tr>
+                    <td><a class="btn btn-info" href="@Url.Action("FormUnidad", "Unidad", new { idUnidad = unidad.IdUnidad })">Editar</a></td>
+                    <td>@unidad.IdUnidad</td>
+                    <td>@unidad.NumeroPlaca</td>
+                    <td>@unidad.Modelo</td>
+                    <td>@unidad.Marca</td>
+                    <td>@unidad.AnioFabricacion</td>
+                    <td>@unidad.EstatusUnidad.Estatus</td>
+                    <td><a class="btn btn-danger" href="@Url.Action()" onclick="return confirm('Seguro de querer eliminar la unidad?')">Eliminar</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Mira cuanto vacío!</h4>
+        <p>Parece que en este momento no tienes repartidores de ningun tipo registrados en el sistema.</p>
+        <hr>
+        <p class="mb-0">Se pueden agregar nuevos usuarios si tienes el rol del administrador.</p>
+    </div>
+}
+<br />
+<br />
+<span>Para agregar nuevas unidades, presione el siguiente botón para llenar el formulario de registro</span>   <a class="btn btn-success" href="@Url.Action("FormUnidad", "Unidad", new { idUnidad = 0 })"> Agregar Unidad</a>
+

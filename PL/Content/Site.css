@@ -1,0 +1,22 @@
+﻿/* Set padding to keep content from hitting the edges */
+.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background: rgb(5,5,82);
+    background: linear-gradient(45deg, rgba(5,5,82,1) 29%, rgba(1,187,234,1) 70%, rgba(0,212,255,1) 100%, rgba(1,0,13,1) 100%);
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}

@@ -1,0 +1,100 @@
+﻿@model ML.Repartidor
+@{
+    ViewBag.Title = "FormRepartidor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @Scripts.Render("~/bundles/jquery")
+}
+
+<h2 class="text-center">Registro / Actualizacion de Repartidores</h2>
+<br />
+<br />
+<span>Llene los campos necesarios para poder completar el registro o actualización de un repartidor para la empresa.</span>
+<hr />
+@using (Html.BeginForm("FormRepartidor", "Repartidor", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => Model.IdRepartidor)
+    @Html.HiddenFor(mode => Model.Fotografia)
+    <div class="row row-cols-2">
+        <div class="col-lg-6">
+            @Html.Label("Nombre(s)")
+            @Html.TextBoxFor(model => Model.Nombre, new { @class = "form-control", @placeholder = "Nombre(s)" })
+        </div>
+        <div class="col-lg-6">
+            @Html.Label("Apellido Paterno")
+            @Html.TextBoxFor(model => Model.ApellidoPaterno, new { @class = "form-control", @placeholder = "Apellido Paterno" })
+        </div>
+    </div>
+    <br />
+    <div class="row row-cols-2">
+        <div class="col-lg-6">
+            @Html.Label("Apellido Materno")
+            @Html.TextBoxFor(model => Model.ApellidoMaterno, new { @class = "form-control", @placeholder = "Apellido Materno" })
+        </div>
+        <div class="col-lg-6">
+            @Html.Label("Fecha de Ingreso")
+            @Html.TextBoxFor(model => Model.FechaIngreso, new { @class = "form-control", @placeholder = "YYYY/MM/DD" })
+        </div>
+    </div>
+    <br />
+    <div class="row row-cols-2">
+        <div class="col-lg-6">
+            @Html.Label("Telefono (Celular)")
+            @Html.TextBoxFor(model => Model.Telefono, new { @class = "form-control" })
+        </div>
+    </div>
+    <br />
+    <div class="row row-cols-2">
+        <div class="col-lg-6">
+            @if (Model.Fotografia == "" || Model.Fotografia == null)
+            {
+                <img src="https://kayum.mx/wp-content/uploads/2020/11/Repartidor-en-moto-ICON.svg" alt="repartidor sin foto" id="imagenRepartidor" width="200" height="200" />
+                <hr />
+                <input id="Imagen" name="Imagen" type="file" class="form-control" onchange="ValidaImagen(), VerImagen(this)" />
+            }
+            else
+            {
+                <img src="data:image/*;base64,@Model.Fotografia" id="imagenRepartidor" width="200" height="200" />
+                <br />
+                <input id="Imagen" name="Imagen" type="file" class="form-control" onchange="ValidaImagen(), VerImagen(this)" />
+            }
+        </div>
+        <div class="col-lg-6">
+            @Html.Label("Unidad Asignada por Id")
+            @Html.DropDownListFor(model => Model.UnidadAsignada.IdUnidad, new SelectList(Model.UnidadAsignada.Unidades, "IdUnidad", "NumeroPlaca"), "Seleccione una unidad", new { @class = "form-control" })
+            <img src="https://cdn-icons-png.flaticon.com/512/726/726455.png" alt="unidad asignada" width="200" height="200" />
+        </div>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-success">Agregar Repartidor</button>
+    <a class="btn btn-danger" href="@Url.Action("GetAllRepartidor", "Repartidor")">Volver a la Vista</a>
+
+}
+
+<script>
+    function ValidaImagen() {
+        var extensionesPermitidas = ['jpeg', 'jpg', 'png'];
+        var extensionArchivo = document.getElementById('Imagen').value.split('.').pop().toLowerCase();
+        var isValidFile = false; //saber si es valida o no es valida
+        for (var index in extensionesPermitidas) {
+            if (extensionArchivo === extensionesPermitidas[index]) {
+                isValidFile = true;
+                break;
+            }
+        }
+        if (!isValidFile) {
+            alert('Las extensiones permitidas son : *.' + extensionesPermitidas.join(', *.'));
+            $("#Imagen").val("")
+        }
+        return isValidFile;
+    }
+
+    function VerImagen(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imagenRepartidor').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

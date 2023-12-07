@@ -1,0 +1,66 @@
+﻿@model ML.Repartidor
+@{
+    ViewBag.Title = "GetAllRepartidor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Repartidores Registrados</h2>
+<br />
+<br />
+<span>
+    Esta es la lista de repartidores que se encuentran registrados en el sistema, se muetsra su información empresarial
+    junto con las unidades que manejan para hacer los envíos que tienen asignados.
+</span>
+<hr />
+@if (Model.Repartidores.Count > 0)
+{
+    <table class="table table-responsive table-dark table-bordered">
+        <thead>
+            <tr>
+                <th>Editar Repartidor</th>
+                <th>Fotografia</th>
+                <th>Nombre</th>
+                <th>Fecha de Ingreso</th>
+                <th>Telefono</th>
+                <th>Unidad Asignada (Placa)</th>
+                <th>Eliminar Repartidor</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ML.Repartidor repartidor in Model.Repartidores)
+            {
+                <tr>
+                    <td><a class="btn btn-info" href="@Url.Action("FormRepartidor", "Repartidor", new { idRepartidor = repartidor.IdRepartidor })">Editar</a></td>
+                    @if (repartidor.Fotografia == null)
+                    {
+                        <td><img src="https://cdn-icons-png.flaticon.com/512/6312/6312770.png" alt="iconorepartidor" width="55" height="55" class="rounded-circle align-content-center" /></td>
+                    }
+                    else
+                    {
+                        <td><img src="data:image/*;base64,@repartidor.Fotografia" width="53" height="65" class="rounded-circle align-content-center" /></td>
+                    }
+                    <td>@repartidor.Nombre @repartidor.ApellidoPaterno @repartidor.ApellidoMaterno</td>
+                    <td>@repartidor.FechaIngreso</td>
+                    <td>@repartidor.Telefono</td>
+                    <td>@repartidor.UnidadAsignada.NumeroPlaca</td>
+                    <td><a class="btn btn-danger" href="@Url.Action("Delete", "Repartidor", new { idRepartidor = repartidor.IdRepartidor })" onclick="return confirm('Seguro de querer eliminar a este elemento?')">Eliminar</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Mira cuanto vacío!</h4>
+        <p>Parece que en este momento no tienes repartidores de ningun tipo registrados en el sistema.</p>
+        <hr>
+        <p class="mb-0">Se pueden agregar nuevos usuarios si tienes el rol del administrador.</p>
+    </div>
+}
+<br />
+<span>Para agregar nuevos repartidores al sistema, haga click en el siguiente botón para llenar el formulario de registro: </span>
+<br />
+<center>
+    <a class="btn btn-success" href="@Url.Action("FormRepartidor", "Repartidor", new { idRepartidor = 0 })"> Agregar Repartidor</a>
+</center>

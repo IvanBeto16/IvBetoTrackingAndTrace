@@ -1,0 +1,59 @@
+﻿@model ML.Unidad
+@{
+    ViewBag.Title = "FormUnidad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Registro / Actualización de Unidades de Entregas</h2>
+<br />
+<br />
+<center>
+    <img src="https://png.pngtree.com/thumb_back/fw800/background/20220204/pngtree-big-isolated-delivery-vehicle-vector-icons-flat-illustrations-of-truck-logistic-image_984790.jpg" height="400" width="70%"/>
+</center>
+<br />
+<span>Llene los siguientes campos para poder completar el registro o actualización de su unidad de entregas para futuros envíos.</span>
+<hr />
+@using (Html.BeginForm("FormUnidad", "Unidad", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => Model.IdUnidad)
+    <div class="row row-cols-3">
+        <div class="col-lg-4">
+            @Html.Label("Numero de Placa")
+            @Html.TextBoxFor(model => Model.NumeroPlaca, new { @class = "form-control", @placeholder = "XXX-0000" })
+        </div>
+        <br />
+        <div class="col-lg-4">
+            @Html.Label("Modelo de la Unidad")
+            @Html.TextBoxFor(model => Model.Modelo, new { @class = "form-control", @placeholder = "Mustang" })
+        </div>
+        <br />
+        <div class="col-lg-4">
+            @Html.Label("Marca del Fabricante")
+            @Html.TextBoxFor(model => Model.Marca, new { @class = "form-control", @placeholder = "Mazda" })
+        </div>
+    </div>
+    <br />
+    <div class="row row-cols-3">
+        <div class="col-lg-4">
+            @Html.Label("Año de Fabricación")
+            @Html.TextBoxFor(model => Model.AnioFabricacion, new { @class = "form-control", @placeholder = "2020" })
+        </div>
+        <br />
+        <div class="col-lg-4">
+            
+        </div>
+        <br />
+        <div class="col-lg-4">
+            @Html.Label("Estatus de la Unidad")
+            @Html.DropDownListFor(model => Model.EstatusUnidad.IdEstatus, new SelectList(Model.EstatusUnidad.Estados, "IdEstatus", "Estatus"), "Seleccione el estado de la unidad", new { @class = "form-control" })
+        </div>
+    </div>
+    <br />
+
+    <hr />
+    <button class="btn btn-success">Agregar Unidad de Entrega</button>
+    <a class="btn btn-danger" href="@Url.Action("GetAllUnidad", "Unidad")">Volver a la lista de Unidades</a>
+    <br />
+    <br />
+ }
+
